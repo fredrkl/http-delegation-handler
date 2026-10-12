@@ -2,8 +2,15 @@ namespace DelegationHandlerDemo.DemoClient
 {
   public class CustomDelegatingHandler : DelegatingHandler
   {
+    private readonly ITokenProvider _tokenProvider;
+
+    public CustomDelegatingHandler(ITokenProvider tokenProvider)
+    {
+      _tokenProvider = tokenProvider;
+    }
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
+      // This is where I can add custom logic before sending the request, such as logging, modifying headers
       // Log the request
       Console.WriteLine($"Request: {request.Method} {request.RequestUri}");
 
